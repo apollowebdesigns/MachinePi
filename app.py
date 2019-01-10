@@ -12,6 +12,7 @@ import webbrowser
 import cv2
 import numpy as np
 from PIL import Image
+from arminit import MoveArm
 
 # allow the camera to warmup
 time.sleep(0.1)
@@ -68,6 +69,10 @@ class ErrorHandler(tornado.web.RequestHandler):
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):
+    centre_of_face = {
+        x: 0,
+        y: 0
+    }
 
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
@@ -122,6 +127,14 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
                 if confidence > 0.5:
                     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+                    x = xmax - xmin
+                    y = ymax - ymin
+                    if x > self.centre_of_face['x']:
+                        MoveArm(1, [0,2,0])
+                    elif x < self.centre_of_face['x']:
+                        MoveArm(1, [0, 1, 0])
+                    self.centre_of_face['x'] = x
+                    self.centre_of_face['y'] = y
                     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
             #img_crop_pil = Image.fromarray(out)
             # img_crop_pil = Image.fromarray(out.astype('uint8'), 'RGB')
