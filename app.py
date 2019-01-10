@@ -14,6 +14,8 @@ import numpy as np
 from PIL import Image
 from arminit import MoveArm
 
+centre_of_faceX = 0
+
 # allow the camera to warmup
 time.sleep(0.1)
 
@@ -69,10 +71,7 @@ class ErrorHandler(tornado.web.RequestHandler):
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):
-    centre_of_face = {
-        x: 0,
-        y: 0
-    }
+
 
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
@@ -128,10 +127,9 @@ class WebSocket(tornado.websocket.WebSocketHandler):
                 if confidence > 0.5:
                     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
                     x = xmax - xmin
-                    y = ymax - ymin
-                    if x > self.centre_of_face['x']:
+                    if x > centre_of_faceX:
                         MoveArm(1, [0,2,0])
-                    elif x < self.centre_of_face['x']:
+                    elif x < centre_of_faceX:
                         MoveArm(1, [0, 1, 0])
                     self.centre_of_face['x'] = x
                     self.centre_of_face['y'] = y
