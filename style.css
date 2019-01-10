@@ -16,7 +16,8 @@ p {
 }
 
 img {
-    width: 200px;
+    position: center;
+    width: 500px;
     height: auto;
 }
 
