@@ -129,10 +129,11 @@ class WebSocket(tornado.websocket.WebSocketHandler):
                     x = xmax - xmin
                     print(x)
                     print(centre_of_faceX)
-                    # if x > centre_of_faceX:
-                    #     MoveArm(1, [0,2,0])
-                    # elif x < centre_of_faceX:
-                    #     MoveArm(1, [0, 1, 0])
+                    if x > centre_of_faceX:
+                        MoveArm(1, [0,2,0])
+                    elif x < centre_of_faceX:
+                        MoveArm(1, [0, 1, 0])
+                    centre_of_faceX = x
                     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
             #img_crop_pil = Image.fromarray(out)
             # img_crop_pil = Image.fromarray(out.astype('uint8'), 'RGB')
