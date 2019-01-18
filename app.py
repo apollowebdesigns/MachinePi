@@ -13,6 +13,7 @@ import cv2
 import numpy as np
 from PIL import Image
 # from arminit import MoveArm
+from xmas import light_up_xmas
 
 centre_of_faceX = 0
 
