@@ -110,12 +110,6 @@ class WebSocket(tornado.websocket.WebSocketHandler):
             blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
             net.setInput(blob)
             out = net.forward()
-            print('what is the image?')
-            print(type(image))
-
-
-            # png_buffer = byte_io.getvalue()
-            # byte_io.close()
 
             # Draw detected faces on the frame
             for detection in out.reshape(-1, 7):
@@ -126,24 +120,11 @@ class WebSocket(tornado.websocket.WebSocketHandler):
                 ymax = int(detection[6] * image.shape[0])
 
                 if confidence > 0.5:
-                    # print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-                    # x = xmax - xmin
-                    # print(x)
-                    # print(centre_of_faceX)
-                    # if x > centre_of_faceX:
-                    #     MoveArm(1, [0,2,0])
-                    # elif x < centre_of_faceX:
-                    #     MoveArm(1, [0, 1, 0])
-                    # centre_of_faceX = x
                     light_up_xmas()
                     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-            #img_crop_pil = Image.fromarray(out)
-            # img_crop_pil = Image.fromarray(out.astype('uint8'), 'RGB')
-            # TODO no error but no image
+
             ret, jpeg = cv2.imencode('.jpg', image)
             testbytes = jpeg.tobytes()
-            # byte_io = io.BytesIO(testbytes)
-            # img_crop_pil.save(byte_io, "JPEG")
 
         try:
             # self.write_message(base64.b64encode(sio.getvalue()))
