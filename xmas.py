@@ -10,4 +10,4 @@ def light_up_xmas():
         led.source_delay = 0.1
         led.source = random_values()
 
-    sleep(0.5)
+    sleep(1)
