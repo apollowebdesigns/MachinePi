@@ -80,7 +80,7 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         # Start an infinite loop when this is called
         if message == "read_camera":
             if not args.require_login or self.get_secure_cookie(COOKIE_NAME):
-                self.camera_loop = PeriodicCallback(self.loop, 2)
+                self.camera_loop = PeriodicCallback(self.loop, 10)
                 self.camera_loop.start()
             else:
                 print("Unauthenticated websocket request")
