@@ -21,9 +21,11 @@ centre_of_faceX = 0
 time.sleep(0.1)
 
 pathy = os.getcwd()
+print('debug')
+print(pathy)
 
 # Load the model
-net = cv2.dnn.readNet(pathy + '/face-detection-adas-0001.xml', pathy + '/face-detection-adas-0001.bin')
+net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
 
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
