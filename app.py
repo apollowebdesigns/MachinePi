@@ -47,7 +47,6 @@ COOKIE_NAME = "camp"
 
 
 class IndexHandler(tornado.web.RequestHandler):
-
     def get(self):
         if args.require_login and not self.get_secure_cookie(COOKIE_NAME):
             self.redirect("/login")
@@ -56,7 +55,6 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 class LoginHandler(tornado.web.RequestHandler):
-
     def get(self):
         self.render("login.html")
 
@@ -76,11 +74,8 @@ class ErrorHandler(tornado.web.RequestHandler):
 
 
 class WebSocket(tornado.websocket.WebSocketHandler):
-
-
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
-
         # Start an infinite loop when this is called
         if message == "read_camera":
             if not args.require_login or self.get_secure_cookie(COOKIE_NAME):
