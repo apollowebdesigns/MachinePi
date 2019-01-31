@@ -93,7 +93,8 @@ class Camera(object):
 
                 # store frame
                 stream.seek(0)
-                cls.frame = stream.read()
+                cls.frame = testbytes
+                # cls.frame = stream.read()
 
                 # reset stream for next frame
                 stream.seek(0)
