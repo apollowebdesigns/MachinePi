@@ -61,14 +61,19 @@ class Camera(object):
             for foo in camera.capture_continuous(stream, 'jpeg',
                                                  use_video_port=True):
 
+                ####################
+
+                # frame = camera.capture(sio, "jpeg", use_video_port=True)
                 data = np.fromstring(stream.getvalue(), dtype=np.uint8)
 
                 image = cv2.imdecode(data, 1)
 
+                # Prepare input blob and perform an inference
                 blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
                 net.setInput(blob)
                 out = net.forward()
 
+                # Draw detected faces on the frame
                 for detection in out.reshape(-1, 7):
                     confidence = float(detection[2])
                     xmin = int(detection[3] * image.shape[1])
@@ -83,10 +88,13 @@ class Camera(object):
                 ret, jpeg = cv2.imencode('.jpg', image)
                 testbytes = jpeg.tobytes()
 
+                ####################
+
 
                 # store frame
                 stream.seek(0)
                 cls.frame = testbytes
+                # cls.frame = stream.read()
 
                 # reset stream for next frame
                 stream.seek(0)
