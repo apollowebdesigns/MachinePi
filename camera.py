@@ -81,7 +81,7 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        light_up_xmas()
+                        # light_up_xmas()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
                 ret, jpeg = cv2.imencode('.jpg', image)
