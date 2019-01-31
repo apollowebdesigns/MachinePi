@@ -86,6 +86,8 @@ class Camera(object):
 
                     if confidence > 0.5:
                         if not t.isAlive():
+                            t = threading.Thread(target=light_up_xmas)
+                            t.daemon = True
                             t.start()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
