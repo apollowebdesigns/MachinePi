@@ -85,7 +85,8 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        t.start()
+                        if not t.isAlive():
+                            t.start()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
                 ret, jpeg = cv2.imencode('.jpg', image)
