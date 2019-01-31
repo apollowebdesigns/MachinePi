@@ -90,16 +90,16 @@ class Camera(object):
 
 
                 # store frame
-                stream.seek(0)
+                # stream.seek(0)
                 cls.frame = testbytes
                 # cls.frame = stream.read()
 
                 # reset stream for next frame
-                stream.seek(0)
+                # stream.seek(0)
                 stream.truncate()
 
                 # if there hasn't been any clients asking for frames in
                 # the last 10 seconds stop the thread
-                if time.time() - cls.last_access > 10:
-                    break
+                # if time.time() - cls.last_access > 10:
+                #     break
         cls.thread = None
