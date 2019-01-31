@@ -14,6 +14,9 @@ import numpy as np
 from PIL import Image
 # from arminit import MoveArm
 from xmas import light_up_xmas
+from multiprocessing import Process
+
+p = Process(target=light_up_xmas)
 
 # Load the model
 net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
@@ -82,6 +85,7 @@ class Camera(object):
 
                     if confidence > 0.5:
                         # light_up_xmas()
+                        p.start()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
                 ret, jpeg = cv2.imencode('.jpg', image)
