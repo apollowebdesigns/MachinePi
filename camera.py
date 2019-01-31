@@ -15,6 +15,12 @@ from PIL import Image
 # from arminit import MoveArm
 from xmas import light_up_xmas
 
+# Load the model
+net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
+
+# Specify target device
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
+
 
 class Camera(object):
     thread = None  # background thread that reads frames from camera
