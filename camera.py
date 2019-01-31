@@ -27,6 +27,8 @@ t.daemon = True
 
 
 class Camera(object):
+    t = threading.Thread(target=light_up_xmas)
+    t.daemon = True
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
@@ -85,12 +87,12 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        if not t.isAlive():
+                        if not cls.t.isAlive():
                             try:
-                                t.start()
+                                cls.t.start()
                             except:
-                                t = threading.Thread(target=light_up_xmas)
-                                t.daemon = True
+                                cls.t = threading.Thread(target=light_up_xmas)
+                                cls.t.daemon = True
 
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
