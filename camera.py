@@ -22,6 +22,9 @@ net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
 
+t = threading.Thread(target=light_up_xmas)
+t.daemon = True
+
 
 class Camera(object):
     thread = None  # background thread that reads frames from camera
@@ -82,7 +85,7 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        light_up_xmas()
+                        t.start()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
                 ret, jpeg = cv2.imencode('.jpg', image)
