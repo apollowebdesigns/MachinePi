@@ -87,13 +87,7 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        if not cls.t.isAlive():
-                            try:
-                                cls.t.start()
-                            except:
-                                cls.t = threading.Thread(target=light_up_xmas)
-                                cls.t.daemon = True
-
+                        # light_up_xmas()
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
                 ret, jpeg = cv2.imencode('.jpg', image)
