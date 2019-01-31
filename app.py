@@ -1,178 +1,35 @@
 #!/usr/bin/env python
-"""
-Creates an HTTP server with basic auth and websocket communication.
-"""
-import argparse
-import base64
-import hashlib
-import os
-import time
-import threading
-import webbrowser
-import cv2
-import numpy as np
-from PIL import Image
-# from arminit import MoveArm
-from xmas import light_up_xmas
+from flask import Flask, render_template, Response
 
-centre_of_faceX = 0
+# emulated camera
+from camera import Camera
 
-# allow the camera to warmup
-time.sleep(0.1)
+# Raspberry Pi camera module (requires picamera package)
+# from camera_pi import Camera
 
-pathy = os.getcwd()
-print('debug')
-print(pathy)
-
-# Load the model
-net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
-
-# Specify target device
-net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
-
-try:
-    import cStringIO as io
-except ImportError:
-    import io
-
-import tornado.web
-import tornado.websocket
-from tornado.ioloop import PeriodicCallback
-
-# Hashed password for comparison and a cookie for login cache
-ROOT = os.path.normpath(os.path.dirname(__file__))
-with open(os.path.join(ROOT, "password.txt")) as in_file:
-    PASSWORD = in_file.read().strip()
-COOKIE_NAME = "camp"
+app = Flask(__name__)
 
 
-class IndexHandler(tornado.web.RequestHandler):
-    def get(self):
-        if args.require_login and not self.get_secure_cookie(COOKIE_NAME):
-            self.redirect("/login")
-        else:
-            self.render("index.html", port=args.port)
+@app.route('/')
+def index():
+    """Video streaming home page."""
+    return render_template('index.html')
 
 
-class LoginHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render("login.html")
-
-    def post(self):
-        password = self.get_argument("password", "")
-        if hashlib.sha512(password).hexdigest() == PASSWORD:
-            self.set_secure_cookie(COOKIE_NAME, str(time.time()))
-            self.redirect("/")
-        else:
-            time.sleep(1)
-            self.redirect(u"/login?error")
+def gen(camera):
+    """Video streaming generator function."""
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-class ErrorHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.send_error(status_code=403)
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-class WebSocket(tornado.websocket.WebSocketHandler):
-    def on_message(self, message):
-        """Evaluates the function pointed to by json-rpc."""
-        # Start an infinite loop when this is called
-        if message == "read_camera":
-            if not args.require_login or self.get_secure_cookie(COOKIE_NAME):
-                self.camera_loop = PeriodicCallback(self.loop, 10)
-                self.camera_loop.start()
-            else:
-                print("Unauthenticated websocket request")
-
-        # Extensibility for other methods
-        else:
-            print("Unsupported function: " + message)
-
-    def loop(self):
-        """Sends camera images in an infinite loop."""
-        sio = io.BytesIO()
-        byte_io = io.BytesIO()
-        testbytes = b''
-
-        if args.use_usb:
-            _, frame = camera.read()
-            img = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
-            img.save(sio, "JPEG")
-        else:
-
-            frame = camera.capture(sio, "jpeg", use_video_port=True)
-            data = np.fromstring(sio.getvalue(), dtype=np.uint8)
-
-            image = cv2.imdecode(data, 1)
-
-            # Prepare input blob and perform an inference
-            blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
-            net.setInput(blob)
-            out = net.forward()
-
-            # Draw detected faces on the frame
-            for detection in out.reshape(-1, 7):
-                confidence = float(detection[2])
-                xmin = int(detection[3] * image.shape[1])
-                ymin = int(detection[4] * image.shape[0])
-                xmax = int(detection[5] * image.shape[1])
-                ymax = int(detection[6] * image.shape[0])
-
-                if confidence > 0.5:
-                    light_up_xmas()
-                    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-
-            ret, jpeg = cv2.imencode('.jpg', image)
-            testbytes = jpeg.tobytes()
-
-        try:
-            # self.write_message(base64.b64encode(sio.getvalue()))
-            self.write_message(base64.b64encode(testbytes))
-        except tornado.websocket.WebSocketClosedError:
-            self.camera_loop.stop()
-
-
-parser = argparse.ArgumentParser(description="Starts a webserver that "
-                                 "connects to a webcam.")
-parser.add_argument("--port", type=int, default=8000, help="The "
-                    "port on which to serve the website.")
-parser.add_argument("--resolution", type=str, default="low", help="The "
-                    "video resolution. Can be high, medium, or low.")
-parser.add_argument("--require-login", action="store_true", help="Require "
-                    "a password to log in to webserver.")
-parser.add_argument("--use-usb", action="store_true", help="Use a USB "
-                    "webcam instead of the standard Pi camera.")
-parser.add_argument("--usb-id", type=int, default=0, help="The "
-                     "usb camera number to display")
-args = parser.parse_args()
-
-if args.use_usb:
-    import cv2
-    from PIL import Image
-    camera = cv2.VideoCapture(args.usb_id)
-else:
-    import picamera
-    camera = picamera.PiCamera()
-    camera.start_preview()
-
-resolutions = {"high": (1280, 720), "medium": (640, 480), "low": (320, 240)}
-if args.resolution in resolutions:
-    if args.use_usb:
-        w, h = resolutions[args.resolution]
-        camera.set(3, w)
-        camera.set(4, h)
-    else:
-        camera.resolution = resolutions[args.resolution]
-else:
-    raise Exception("%s not in resolution options." % args.resolution)
-
-handlers = [(r"/", IndexHandler), (r"/login", LoginHandler),
-            (r"/websocket", WebSocket),
-            (r"/static/password.txt", ErrorHandler),
-            (r'/static/(.*)', tornado.web.StaticFileHandler, {'path': ROOT})]
-application = tornado.web.Application(handlers, cookie_secret=PASSWORD)
-application.listen(args.port)
-
-webbrowser.open("http://localhost:%d/" % args.port, new=2)
-
-tornado.ioloop.IOLoop.instance().start()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True, threaded=True)
