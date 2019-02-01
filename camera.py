@@ -27,8 +27,6 @@ t.daemon = True
 
 
 class Camera(object):
-    t = threading.Thread(target=light_up_xmas)
-    t.daemon = True
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
