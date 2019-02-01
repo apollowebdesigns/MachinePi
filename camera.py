@@ -16,6 +16,14 @@ from PIL import Image
 from xmas import light_up_xmas
 import threading
 
+from nanpy import (ArduinoApi, SerialManager)
+
+connection = SerialManager()
+a = ArduinoApi(connection=connection)
+a.pinMode(11, a.OUTPUT)
+a.pinMode(10, a.OUTPUT)
+
+
 # Load the model
 net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
 
@@ -86,7 +94,12 @@ class Camera(object):
 
                     if confidence > 0.5:
                         # light_up_xmas()
+                        a.digitalWrite(11, a.HIGH)
+                        a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
+                    else:
+                        a.digitalWrite(11, a.LOW)
+                        a.digitalWrite(10, a.LOW)
 
                 ret, jpeg = cv2.imencode('.jpg', image)
                 testbytes = jpeg.tobytes()
