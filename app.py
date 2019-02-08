@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, Response
+from flask_cors import CORS
 
 # emulated camera
 from camera import Camera
@@ -8,6 +9,7 @@ from camera import Camera
 # from camera_pi import Camera
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
