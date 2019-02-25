@@ -80,7 +80,8 @@ class Camera(object):
                 image = cv2.imdecode(data, 1)
 
                 # Prepare input blob and perform an inference
-                blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
+                # blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
+                blob = cv2.dnn.blobFromImage(image, size=(320, 240), ddepth=cv2.CV_8U)
                 net.setInput(blob)
                 out = net.forward()
 
