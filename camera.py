@@ -93,14 +93,14 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        light_up_xmas()
-                        # a.digitalWrite(11, a.HIGH)
-                        # a.digitalWrite(10, a.HIGH)
+                        # light_up_xmas()
+                        a.digitalWrite(11, a.HIGH)
+                        a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
                     # else:
                     #     print('low')
-                        # a.digitalWrite(11, a.LOW)
-                        # a.digitalWrite(10, a.LOW)
+                        a.digitalWrite(11, a.LOW)
+                        a.digitalWrite(10, a.LOW)
 
                 ret, jpeg = cv2.imencode('.jpg', image)
                 testbytes = jpeg.tobytes()
