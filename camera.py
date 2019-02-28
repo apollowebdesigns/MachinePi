@@ -15,6 +15,8 @@ from PIL import Image
 # from arminit import MoveArm
 from xmas import light_up_xmas
 import threading
+import os
+
 
 from nanpy import (ArduinoApi, SerialManager)
 
@@ -25,7 +27,7 @@ a.pinMode(10, a.OUTPUT)
 
 
 # Load the model
-net = cv2.dnn.readNet('face-detection-adas-0001.xml', 'face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(os.path.dirname(__file__) + 'face-detection-adas-0001.xml', os.path.dirname(__file__) + 'face-detection-adas-0001.bin')
 
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
