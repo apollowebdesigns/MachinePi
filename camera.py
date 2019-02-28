@@ -27,7 +27,7 @@ a.pinMode(10, a.OUTPUT)
 
 
 # Load the model
-net = cv2.dnn.readNet(os.path.dirname(__file__) + 'face-detection-adas-0001.xml', os.path.dirname(__file__) + 'face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml', os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
 
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
