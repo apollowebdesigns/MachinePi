@@ -42,6 +42,7 @@ class StreamingOutput(object):
         data = np.fromstring(frame, dtype=np.uint8)
         print('hit1')
         if frame.empty():
+            print('empty')
             return frame
         image = cv2.imdecode(data, 1)
         print('hit2')
