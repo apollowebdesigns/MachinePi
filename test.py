@@ -65,7 +65,7 @@ class StreamingOutput(object):
                 if confidence > 0.5:
                     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
-            ret, jpeg = cv2.imencode('.mjpg', image)
+            ret, jpeg = cv2.imencode('.jpg', image)
             testbytes = jpeg.tobytes()
             return jpeg
         else:
