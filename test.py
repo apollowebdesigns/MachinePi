@@ -46,6 +46,7 @@ class StreamingOutput(object):
         a = byters.find(b'\xff\xd8')
         b = byters.find(b'\xff\xd9')
         print('bitten')
+        return stream
         if len(data) != 0:
             image = cv2.imdecode(data, 1)
             print('hit2')
@@ -81,7 +82,7 @@ class StreamingOutput(object):
             self.buffer.truncate()
             with self.condition:
                 self.frame = self.buffer.getvalue()
-                # self.frame = self.open_cv_process_image(self.buffer)
+                self.frame = self.open_cv_process_image(self.buffer)
                 self.condition.notify_all()
             self.buffer.seek(0)
         else:
