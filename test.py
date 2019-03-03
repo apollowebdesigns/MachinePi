@@ -68,10 +68,10 @@ class StreamingOutput(object):
             ret, jpeg = cv2.imencode('.jpeg', image)
             print('converted')
             testbytes = jpeg.tobytes()
-            return jpeg
+            return testbytes
         else:
             print('empty')
-            return stream.getvalue()
+            return stream
 
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
@@ -80,8 +80,9 @@ class StreamingOutput(object):
             # clients it's available
             self.buffer.truncate()
             with self.condition:
-                # self.frame = self.buffer.getvalue()
-                self.frame = self.open_cv_process_image(self.buffer)
+                self.buffer = self.open_cv_process_image(self.buffer)
+                self.frame = self.buffer.getvalue()
+                # self.frame = self.open_cv_process_image(self.buffer)
                 self.condition.notify_all()
             self.buffer.seek(0)
         else:
