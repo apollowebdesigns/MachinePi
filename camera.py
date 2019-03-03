@@ -17,6 +17,10 @@ from xmas import light_up_xmas
 import threading
 import os
 
+import sys
+
+sys.path.append('/usr/local/lib/python3.5/dist-packages')
+
 
 # from nanpy import (ArduinoApi, SerialManager)
 
