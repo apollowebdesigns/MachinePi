@@ -46,7 +46,7 @@ class StreamingOutput(object):
         a = byters.find(b'\xff\xd8')
         b = byters.find(b'\xff\xd9')
         print('bitten')
-        if a != -1 and b != -1:
+        if data[-3] != 0:
             image = cv2.imdecode(data, 1)
             print('hit2')
             blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
