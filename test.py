@@ -41,30 +41,33 @@ class StreamingOutput(object):
         print('hit22')
         data = np.fromstring(stream.getvalue(), dtype=np.uint8)
         print('hit1')
-        if frame.empty():
+        a = stream.find('\xff\xd8')
+        b = stream.find('\xff\xd9')
+        if a != -1 and b != -1:
+            image = cv2.imdecode(data, 1)
+            print('hit2')
+            blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
+            print('hit3')
+            net.setInput(blob)
+            print('hit4')
+            out = net.forward()
+
+            # Draw detected faces on the frame
+            for detection in out.reshape(-1, 7):
+                confidence = float(detection[2])
+                xmin = int(detection[3] * image.shape[1])
+                ymin = int(detection[4] * image.shape[0])
+                xmax = int(detection[5] * image.shape[1])
+                ymax = int(detection[6] * image.shape[0])
+                if confidence > 0.5:
+                    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
+
+            ret, jpeg = cv2.imencode('.mjpg', image)
+            testbytes = jpeg.tobytes()
+            return jpeg
+        else:
             print('empty')
-            return frame
-        image = cv2.imdecode(data, 1)
-        print('hit2')
-        blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
-        print('hit3')
-        net.setInput(blob)
-        print('hit4')
-        out = net.forward()
-
-        # Draw detected faces on the frame
-        for detection in out.reshape(-1, 7):
-            confidence = float(detection[2])
-            xmin = int(detection[3] * image.shape[1])
-            ymin = int(detection[4] * image.shape[0])
-            xmax = int(detection[5] * image.shape[1])
-            ymax = int(detection[6] * image.shape[0])
-            if confidence > 0.5:
-                cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-
-        ret, jpeg = cv2.imencode('.mjpg', image)
-        testbytes = jpeg.tobytes()
-        return jpeg
+            return stream.getvalue()
 
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
