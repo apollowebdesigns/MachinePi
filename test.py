@@ -20,7 +20,7 @@ PAGE="""\
 """
 
 directory_path = os.path.dirname(__file__)
-if directory_path == '':
+if directory_path != '':
     directory_path = '/'
 
 # Load the model
