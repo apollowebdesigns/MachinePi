@@ -60,8 +60,8 @@ class StreamingOutput(object):
                 ymin = int(detection[4] * image.shape[0])
                 xmax = int(detection[5] * image.shape[1])
                 ymax = int(detection[6] * image.shape[0])
-                if confidence > 0.5:
-                    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
+                # if confidence > 0.5:
+                #     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
             return stream.getvalue()
 
