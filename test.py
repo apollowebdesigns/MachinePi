@@ -42,9 +42,6 @@ class StreamingOutput(object):
         data = np.fromstring(stream.getvalue(), dtype=np.uint8)
         print('hit1')
         print(data)
-        byters = stream.read(1024)
-        a = byters.find(b'\xff\xd8')
-        b = byters.find(b'\xff\xd9')
         print('bitten')
         return stream
         if len(data) != 0:
