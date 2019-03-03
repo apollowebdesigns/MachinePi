@@ -19,10 +19,12 @@ PAGE="""\
 </html>
 """
 
-print(os.path.dirname(__file__))
+directory_path = os.path.dirname(__file__)
+if directory_path == '':
+    directory_path = '/'
 
 # Load the model
-net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml', os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(directory_path + 'face-detection-adas-0001.xml', directory_path + 'face-detection-adas-0001.bin')
 
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
