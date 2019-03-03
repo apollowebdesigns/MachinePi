@@ -44,6 +44,7 @@ class StreamingOutput(object):
         byters = stream.read(1024)
         a = byters.find(b'\xff\xd8')
         b = byters.find(b'\xff\xd9')
+        print('bitten')
         if a != -1 and b != -1:
             image = cv2.imdecode(data, 1)
             print('hit2')
