@@ -1,5 +1,6 @@
 import io
 import picamera
+import cv2
 import logging
 import socketserver
 from threading import Condition
@@ -30,13 +31,35 @@ class StreamingOutput(object):
         self.buffer = io.BytesIO()
         self.condition = Condition()
 
+    def open_cv_process_image(self, buffer):
+        data = np.fromstring(buffer.getvalue(), dtype=np.uint8)
+        image = cv2.imdecode(data, 1)
+        blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
+        net.setInput(blob)
+        out = net.forward()
+
+        # Draw detected faces on the frame
+        for detection in out.reshape(-1, 7):
+            confidence = float(detection[2])
+            xmin = int(detection[3] * image.shape[1])
+            ymin = int(detection[4] * image.shape[0])
+            xmax = int(detection[5] * image.shape[1])
+            ymax = int(detection[6] * image.shape[0])
+            if confidence > 0.5:
+                cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
+
+        ret, jpeg = cv2.imencode('.mjpg', image)
+        testbytes = jpeg.tobytes()
+        return testbytes
+
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
             # New frame, copy the existing buffer's content and notify all
             # clients it's available
             self.buffer.truncate()
             with self.condition:
-                self.frame = self.buffer.getvalue()
+                # self.frame = self.buffer.getvalue()
+                self.frame = self.open_cv_process_image(self.buffer)
                 self.condition.notify_all()
             self.buffer.seek(0)
         return self.buffer.write(buf)
