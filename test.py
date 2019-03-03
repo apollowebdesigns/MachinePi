@@ -37,9 +37,9 @@ class StreamingOutput(object):
         self.buffer = io.BytesIO()
         self.condition = Condition()
 
-    def open_cv_process_image(self, frame):
+    def open_cv_process_image(self, stream):
         print('hit22')
-        data = np.fromstring(frame, dtype=np.uint8)
+        data = np.fromstring(stream.getvalue(), dtype=np.uint8)
         print('hit1')
         if frame.empty():
             print('empty')
