@@ -41,6 +41,8 @@ class StreamingOutput(object):
         print('hit22')
         data = np.fromstring(frame, dtype=np.uint8)
         print('hit1')
+        if frame.empty():
+            return frame
         image = cv2.imdecode(data, 1)
         print('hit2')
         blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
