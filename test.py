@@ -52,22 +52,20 @@ class StreamingOutput(object):
             print('hit4')
             out = net.forward()
 
-
             # Draw detected faces on the frame
-            for detection in out.reshape(-1, 7):
-                confidence = float(detection[2])
-                xmin = int(detection[3] * image.shape[1])
-                ymin = int(detection[4] * image.shape[0])
-                xmax = int(detection[5] * image.shape[1])
-                ymax = int(detection[6] * image.shape[0])
-                # if confidence > 0.5:
-                #     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-
-            return stream.getvalue()
+            # for detection in out.reshape(-1, 7):
+            #     confidence = float(detection[2])
+            #     xmin = int(detection[3] * image.shape[1])
+            #     ymin = int(detection[4] * image.shape[0])
+            #     xmax = int(detection[5] * image.shape[1])
+            #     ymax = int(detection[6] * image.shape[0])
+            #     if confidence > 0.5:
+            #         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
 
             ret, jpeg = cv2.imencode('.jpeg', image)
             print('converted')
             testbytes = jpeg.tobytes()
+            return stream.getvalue()
             return testbytes
         else:
             print('empty')
