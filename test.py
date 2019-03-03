@@ -43,7 +43,7 @@ class StreamingOutput(object):
         print('hit1')
         print(data)
         print('bitten')
-        return stream
+        return stream.getvalue()
         if len(data) != 0:
             image = cv2.imdecode(data, 1)
             print('hit2')
@@ -69,7 +69,7 @@ class StreamingOutput(object):
             return testbytes
         else:
             print('empty')
-            return stream
+            return stream.getvalue()
 
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
