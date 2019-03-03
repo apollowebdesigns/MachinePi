@@ -43,10 +43,10 @@ class StreamingOutput(object):
         print('hit1')
         print(data)
         print('bitten')
-        return stream.getvalue()
         if len(data) != 0:
             image = cv2.imdecode(data, 1)
             print('hit2')
+            return stream.getvalue()
             blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
             print('hit3')
             net.setInput(blob)
