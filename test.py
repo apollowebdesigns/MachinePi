@@ -41,8 +41,9 @@ class StreamingOutput(object):
         print('hit22')
         data = np.fromstring(stream.getvalue(), dtype=np.uint8)
         print('hit1')
-        a = stream.find('\xff\xd8')
-        b = stream.find('\xff\xd9')
+        byters = stream.read(1024)
+        a = byters.find(b'\xff\xd8')
+        b = byters.find(b'\xff\xd9')
         if a != -1 and b != -1:
             image = cv2.imdecode(data, 1)
             print('hit2')
