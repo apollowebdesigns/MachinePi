@@ -64,8 +64,8 @@ class StreamingOutput(object):
 
             ret, jpeg = cv2.imencode('.jpeg', image)
             print('converted')
-            testbytes = jpeg.tobytes()
             return stream.getvalue()
+            testbytes = jpeg.tobytes()
             return testbytes
         else:
             print('empty')
