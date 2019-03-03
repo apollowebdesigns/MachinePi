@@ -6,6 +6,7 @@ import logging
 import socketserver
 from threading import Condition
 from http import server
+import numpy as np
 
 PAGE="""\
 <html>
