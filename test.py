@@ -61,7 +61,7 @@ class StreamingOutput(object):
 
         ret, jpeg = cv2.imencode('.mjpg', image)
         testbytes = jpeg.tobytes()
-        return testbytes
+        return jpeg
 
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
