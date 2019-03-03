@@ -73,7 +73,7 @@ class StreamingOutput(object):
                 self.frame = self.buffer.getvalue()
                 # self.frame = self.open_cv_process_image(self.buffer)
                 self.condition.notify_all()
-            self.frame = self.open_cv_process_image(self.buffer)
+            self.frame = self.open_cv_process_image(self.frame)
             self.buffer.seek(0)
         return self.buffer.write(buf)
 
