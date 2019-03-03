@@ -48,9 +48,10 @@ class StreamingOutput(object):
             print('hit2')
             blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
             print('hit3')
+            return stream.getvalue()
             net.setInput(blob)
             print('hit4')
-            return stream.getvalue()
+
             out = net.forward()
 
             # Draw detected faces on the frame
