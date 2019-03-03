@@ -37,9 +37,9 @@ class StreamingOutput(object):
         self.buffer = io.BytesIO()
         self.condition = Condition()
 
-    def open_cv_process_image(self, buffer):
+    def open_cv_process_image(self, frame):
         print('hit22')
-        data = np.fromstring(buffer.getvalue(), dtype=np.uint8)
+        data = np.fromstring(frame, dtype=np.uint8)
         print('hit1')
         image = cv2.imdecode(data, 1)
         print('hit2')
@@ -70,9 +70,10 @@ class StreamingOutput(object):
             # clients it's available
             self.buffer.truncate()
             with self.condition:
-                # self.frame = self.buffer.getvalue()
-                self.frame = self.open_cv_process_image(self.buffer)
+                self.frame = self.buffer.getvalue()
+                # self.frame = self.open_cv_process_image(self.buffer)
                 self.condition.notify_all()
+            self.frame = self.open_cv_process_image(self.buffer)
             self.buffer.seek(0)
         return self.buffer.write(buf)
 
