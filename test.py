@@ -37,10 +37,15 @@ class StreamingOutput(object):
         self.condition = Condition()
 
     def open_cv_process_image(self, buffer):
+        print('hit22')
         data = np.fromstring(buffer.getvalue(), dtype=np.uint8)
+        print('hit1')
         image = cv2.imdecode(data, 1)
+        print('hit2')
         blob = cv2.dnn.blobFromImage(image, size=(672, 384), ddepth=cv2.CV_8U)
+        print('hit3')
         net.setInput(blob)
+        print('hit4')
         out = net.forward()
 
         # Draw detected faces on the frame
@@ -59,6 +64,7 @@ class StreamingOutput(object):
 
     def write(self, buf):
         if buf.startswith(b'\xff\xd8'):
+            print('hit')
             # New frame, copy the existing buffer's content and notify all
             # clients it's available
             self.buffer.truncate()
