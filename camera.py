@@ -36,7 +36,7 @@ net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
 
-t = threading.Thread(target=light_up_xmas)
+# t = threading.Thread(target=light_up_xmas)
 t.daemon = True
 
 
