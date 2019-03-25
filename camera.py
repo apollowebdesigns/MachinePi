@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 from PIL import Image
 # from arminit import MoveArm
-from xmas import light_up_xmas
+# from xmas import light_up_xmas
 import threading
 import os
 
@@ -99,7 +99,7 @@ class Camera(object):
                     ymax = int(detection[6] * image.shape[0])
 
                     if confidence > 0.5:
-                        light_up_xmas()
+                        # light_up_xmas()
                         # a.digitalWrite(11, a.HIGH)
                         # a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
