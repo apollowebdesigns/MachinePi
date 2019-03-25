@@ -37,7 +37,7 @@ net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
 
 # t = threading.Thread(target=light_up_xmas)
-t.daemon = True
+# t.daemon = True
 
 
 class Camera(object):
