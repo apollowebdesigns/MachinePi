@@ -22,12 +22,12 @@ import sys
 sys.path.append('/usr/local/lib/python3.5/dist-packages')
 
 
-# from nanpy import (ArduinoApi, SerialManager)
+from nanpy import (ArduinoApi, SerialManager)
 
-# connection = SerialManager()
-# a = ArduinoApi(connection=connection)
-# a.pinMode(11, a.OUTPUT)
-# a.pinMode(10, a.OUTPUT)
+connection = SerialManager()
+a = ArduinoApi(connection=connection)
+a.pinMode(11, a.OUTPUT)
+a.pinMode(10, a.OUTPUT)
 
 
 # Load the model
@@ -100,13 +100,13 @@ class Camera(object):
 
                     if confidence > 0.5:
                         # light_up_xmas()
-                        # a.digitalWrite(11, a.HIGH)
-                        # a.digitalWrite(10, a.HIGH)
+                        a.digitalWrite(11, a.HIGH)
+                        a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-                    # else:
-                    #     print('low')
-                    #     a.digitalWrite(11, a.LOW)
-                    #     a.digitalWrite(10, a.LOW)
+                    else:
+                        print('low')
+                        a.digitalWrite(11, a.LOW)
+                        a.digitalWrite(10, a.LOW)
 
                 ret, jpeg = cv2.imencode('.jpg', image)
                 testbytes = jpeg.tobytes()
