@@ -17,5 +17,7 @@ https://www.waveshare.com/wiki/3.5inch_HDMI_LCD
 ## Motor connection tutorials
 
 ```bash
-https://www.instructables.com/id/How-to-use-the-L293D-Motor-Driver-Arduino-Tutorial/
+https://www.instructables.com/id/Arduino-How-to-Control-DC-Motors-With-L293D-Motor-/
+http://www.mertarduino.com/arduino-dc-motor-control-with-l293d-motor-driver-ic/2018/11/19/
+https://nanpy.github.io/
 ```
