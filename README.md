@@ -21,3 +21,15 @@ https://www.instructables.com/id/Arduino-How-to-Control-DC-Motors-With-L293D-Mot
 http://www.mertarduino.com/arduino-dc-motor-control-with-l293d-motor-driver-ic/2018/11/19/
 https://nanpy.github.io/
 ```
+
+## Maplin Arm
+
+![maplin robot arm](Documentation/Project_Photos/maplin_robot_arm.JPG?raw=true "Maplin Robot Arm")
+
+
+## Installing packages
+
+Scipy - for the Raspberry Pi
+```bash
+sudo apt-get install python3-scipy
+```
