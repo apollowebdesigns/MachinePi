@@ -18,7 +18,7 @@ import threading
 import os
 
 import sys
-from motors import move_forward
+# from motors import move_forward
 sys.path.append('/usr/local/lib/python3.5/dist-packages')
 
 
@@ -103,7 +103,7 @@ class Camera(object):
                         # a.digitalWrite(11, a.HIGH)
                         # a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
-                        move_forward()
+                        # move_forward()
                     # else:
                     #     print('low')
                     #     a.digitalWrite(11, a.LOW)
