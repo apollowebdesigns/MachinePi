@@ -31,7 +31,8 @@ sys.path.append('/usr/local/lib/python3.5/dist-packages')
 
 
 # Load the model
-net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml', os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
+# net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml', os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.xml', os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.bin')
 # net = cv2.dnn.readNet(os.path.dirname(__file__) + '/text-detection-0002.xml', os.path.dirname(__file__) + '/text-detection-0002.bin')
 
 # Specify target device
