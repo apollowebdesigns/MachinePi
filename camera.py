@@ -106,8 +106,8 @@ class Camera(object):
                         # a.digitalWrite(10, a.HIGH)
                         cv2.rectangle(image, (xmin, ymin), (xmax, ymax), color=(0, 255, 0))
                         print('the geometry is: x, y')
-                        print(xmax, xmin)
-                        print(ymax, ymin)
+                        print(xmax - xmin)
+                        print(ymax - ymin)
                         # move_forward()
                     # else:
                     #     print('low')
