@@ -20,6 +20,7 @@ import os
 import sys
 
 from arm import Arm
+from arm.arm_directions import ArmDirections
 from arm.move_arm import move_arm
 
 
