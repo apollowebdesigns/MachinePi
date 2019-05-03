@@ -40,6 +40,6 @@ sudo apt-get install python3-scipy
 You'll need the text detection
 
 ```bash
-https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.bin
-https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.xml
+wget --no-check-certificate https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.bin
+wget --no-check-certificate https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.xml
 ```
