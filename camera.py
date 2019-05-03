@@ -125,7 +125,7 @@ class Camera(object):
 
                         x, y = -70, 0
 
-                        arm.q = arm.inv_kin([x, y])
+                        arm.q = arm.inv_kin([2180/(ymax - ymin), 0])
 
                         new_angles = arm.q
 
