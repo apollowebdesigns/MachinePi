@@ -32,4 +32,14 @@ https://nanpy.github.io/
 Scipy - for the Raspberry Pi
 ```bash
 sudo apt-get install python3-scipy
+
+```
+
+## Setting up the movidius
+
+You'll need the text detection
+
+```bash
+https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.bin
+https://download.01.org/opencv/2019/open_model_zoo/R1/models_bin/text-detection-0002/FP16/text-detection-0002.xml
 ```
