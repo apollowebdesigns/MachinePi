@@ -5,7 +5,7 @@ import usb.core
 import usb.util
 
 # Allocate the name 'RoboArm' to the USB device
-from methods import degrees_to_seconds
+from arm.methods import degrees_to_seconds
 
 
 def get_robot_arm():

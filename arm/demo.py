@@ -1,8 +1,8 @@
 import numpy as np
 
-from arm_directions import ArmDirections
-from move_arm import move_arm
-import Arm
+from arm.arm_directions import ArmDirections
+from arm.move_arm import move_arm
+import arm.Arm
 
 default_arm_positions = [np.pi/2, np.pi/2, 0]
 
