@@ -78,7 +78,7 @@ class Camera(object):
         with picamera.PiCamera() as camera:
             # camera setup
             camera.resolution = (320, 240)
-            camera.framerate = 16
+            camera.framerate = 32
             camera.hflip = True
             camera.vflip = True
 
