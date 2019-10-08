@@ -19,18 +19,18 @@ import os
 
 import sys
 
-from arm import Arm
-from arm.arm_directions import ArmDirections
-from arm.move_arm import move_arm
+# from arm import Arm
+# from arm.arm_directions import ArmDirections
+# from arm.move_arm import move_arm
 
 
-default_arm_positions = [np.pi/2, np.pi/2, 0]
+# default_arm_positions = [np.pi/2, np.pi/2, 0]
 
 ## create the robot arm
-arm = Arm.Arm3Link(q=default_arm_positions, L=np.array([90, 60, 48]))
+# arm = Arm.Arm3Link(q=default_arm_positions, L=np.array([90, 60, 48]))
 
 # from motors import move_forward
-sys.path.append('/usr/local/lib/python3.5/dist-packages')
+# sys.path.append('/usr/local/lib/python3.5/dist-packages')
 
 
 # from nanpy import (ArduinoApi, SerialManager)
@@ -120,23 +120,23 @@ class Camera(object):
                         print(xmax - xmin)
                         print(ymax - ymin)
 
-                        old_angles = default_arm_positions
-
-                        # x, y = -100, 80
-
-                        x, y = -70, 0
-
-                        arm.q = arm.inv_kin([2180/(ymax - ymin), 0])
-
-                        new_angles = arm.q
-
-                        move_arm(old_angles[0] - new_angles[0], ArmDirections.up(), ArmDirections.down())
-                        move_arm(old_angles[1] - new_angles[1], ArmDirections.elbow_up(), ArmDirections.elbow_down())
-                        move_arm(old_angles[2] - new_angles[2], ArmDirections.wrist_up(), ArmDirections.wrist_down())
-
-                        move_arm(old_angles[0] - new_angles[0], ArmDirections.down(), ArmDirections.up())
-                        move_arm(old_angles[1] - new_angles[1], ArmDirections.elbow_down(), ArmDirections.elbow_up())
-                        move_arm(old_angles[2] - new_angles[2], ArmDirections.wrist_down(), ArmDirections.wrist_up())
+                        # old_angles = default_arm_positions
+                        #
+                        # # x, y = -100, 80
+                        #
+                        # x, y = -70, 0
+                        #
+                        # arm.q = arm.inv_kin([2180/(ymax - ymin), 0])
+                        #
+                        # new_angles = arm.q
+                        #
+                        # move_arm(old_angles[0] - new_angles[0], ArmDirections.up(), ArmDirections.down())
+                        # move_arm(old_angles[1] - new_angles[1], ArmDirections.elbow_up(), ArmDirections.elbow_down())
+                        # move_arm(old_angles[2] - new_angles[2], ArmDirections.wrist_up(), ArmDirections.wrist_down())
+                        #
+                        # move_arm(old_angles[0] - new_angles[0], ArmDirections.down(), ArmDirections.up())
+                        # move_arm(old_angles[1] - new_angles[1], ArmDirections.elbow_down(), ArmDirections.elbow_up())
+                        # move_arm(old_angles[2] - new_angles[2], ArmDirections.wrist_down(), ArmDirections.wrist_up())
 
 
                         # move_forward()
