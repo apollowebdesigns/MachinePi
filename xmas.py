@@ -1,3 +1,5 @@
+import asyncio
+
 from gpiozero import LEDBoard
 from gpiozero.tools import random_values
 from time import sleep
@@ -10,4 +12,4 @@ async def light_up_xmas():
         led.source_delay = 0.1
         led.source = random_values()
 
-    sleep(1)
+    asyncio.sleep(1)
