@@ -1,3 +1,4 @@
+import asyncio
 import time
 import io
 import threading
@@ -51,6 +52,15 @@ net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
 
 # t = threading.Thread(target=light_up_xmas)
 # t.daemon = True
+
+
+async def main():
+    """
+    Test function for testing blocking
+    :return:
+    """
+    await asyncio.sleep(4)
+    print('hello')
 
 
 class Camera(object):
@@ -119,6 +129,7 @@ class Camera(object):
                         print('the geometry is: x, y')
                         print(xmax - xmin)
                         print(ymax - ymin)
+                        asyncio.run(main())
 
                         # old_angles = default_arm_positions
                         #
