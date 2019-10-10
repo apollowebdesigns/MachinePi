@@ -12,4 +12,4 @@ async def light_up_xmas():
         led.source_delay = 0.1
         led.source = random_values()
 
-    asyncio.sleep(1)
+    await asyncio.sleep(1)
