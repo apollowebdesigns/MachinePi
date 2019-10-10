@@ -3,7 +3,7 @@ from gpiozero.tools import random_values
 from time import sleep
 
 
-def light_up_xmas():
+async def light_up_xmas():
     tree = LEDBoard(*range(2, 28), pwm=True)
 
     for led in tree:
