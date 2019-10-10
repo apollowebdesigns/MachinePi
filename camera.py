@@ -59,7 +59,7 @@ async def main():
     Test function for testing blocking
     :return:
     """
-    await asyncio.sleep(4)
+    asyncio.sleep(4)
     print('hello')
 
 
