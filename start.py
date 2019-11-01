@@ -1,3 +1,3 @@
 import os
 
-os.system('python3 app.py')
+os.system(os.path.dirname(__file__) + 'python3 app.py')
