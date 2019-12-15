@@ -72,6 +72,6 @@ client1.on_subscribe = on_subscribe
 # Uncomment to enable debug messages
 # mqttc.on_log = on_log
 client1.connect(broker, port)
-client1.subscribe("$SYS/#", 0)
+client1.subscribe("$SYS/#", 2)
 
 client1.loop_forever()
