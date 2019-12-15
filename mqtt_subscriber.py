@@ -11,9 +11,9 @@ def on_subscribe(client, userdata, result):
 
 
 client1 = paho.Client("motors")
-client1.subscribe("pi/wheels", 2)
+
 client1.on_subscribe = on_subscribe
 
 client1.connect(broker, port)
-
+client1.subscribe("pi/wheels", 2)
 client1.loop_forever()
