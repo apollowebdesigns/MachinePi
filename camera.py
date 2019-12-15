@@ -146,6 +146,7 @@ class Camera(object):
                         if not state['message_sent']:
                             sense.set_pixel(4, 5, red)
                             state['message_sent'] = True
+                            print('on')
 
 
                         # old_angles = default_arm_positions
@@ -169,10 +170,10 @@ class Camera(object):
 
                         # move_forward()
                     else:
-                        print('low')
                         if state['message_sent']:
                             sense.set_pixel(4, 5, blue)
                             state['message_sent'] = False
+                            print('off')
                         # a.digitalWrite(11, a.LOW)
                         # a.digitalWrite(10, a.LOW)
 
