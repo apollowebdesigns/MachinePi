@@ -29,6 +29,22 @@ green = (0, 255, 0)
 blue = (0, 0, 255)
 purple = (160, 32, 240)
 
+import paho.mqtt.client as paho
+
+broker = "localhost"
+port = 1883
+
+
+def on_publish(client, userdata, result):
+    print("data published \n")
+    pass
+
+
+client1 = paho.Client("control1")
+client1.on_publish = on_publish
+client1.connect(broker, port)
+ret = client1.publish("house/bulb1", "on")
+
 import sys
 
 # from arm import Arm
@@ -54,12 +70,14 @@ import sys
 
 
 # Load the model
-net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml', os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml',
+                      os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
 # net = cv2.dnn.readNet(os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.xml', os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.bin')
 # net = cv2.dnn.readNet(os.path.dirname(__file__) + '/text-detection-0002.xml', os.path.dirname(__file__) + '/text-detection-0002.bin')
 
 # Specify target device
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_MYRIAD)
+
 
 # t = threading.Thread(target=light_up_xmas)
 # t.daemon = True
@@ -72,6 +90,7 @@ async def main():
     """
     asyncio.sleep(4)
     print('hello')
+
 
 state = {
     'message_sent': False
@@ -150,7 +169,6 @@ class Camera(object):
                             state['message_sent'] = True
                             print('on')
 
-
                         # old_angles = default_arm_positions
                         #
                         # # x, y = -100, 80
@@ -169,7 +187,6 @@ class Camera(object):
                         # move_arm(old_angles[1] - new_angles[1], ArmDirections.elbow_down(), ArmDirections.elbow_up())
                         # move_arm(old_angles[2] - new_angles[2], ArmDirections.wrist_down(), ArmDirections.wrist_up())
 
-
                         # move_forward()
                     else:
                         if state['message_sent']:
@@ -184,7 +201,6 @@ class Camera(object):
                 testbytes = jpeg.tobytes()
 
                 ####################
-
 
                 # store frame
                 stream.seek(0)
