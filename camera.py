@@ -43,7 +43,7 @@ def on_publish(client, userdata, result):
 client1 = paho.Client("control1")
 client1.on_publish = on_publish
 client1.connect(broker, port)
-ret = client1.publish("house/bulb1", "on")
+
 
 import sys
 
@@ -164,8 +164,7 @@ class Camera(object):
                         print(xmax - xmin)
                         print(ymax - ymin)
                         if not state['message_sent']:
-                            sense.clear()
-                            sense.set_pixel(5, 5, purple)
+                            ret = client1.publish("pi/wheels", "on")
                             state['message_sent'] = True
                             print('on')
 
@@ -190,8 +189,7 @@ class Camera(object):
                         # move_forward()
                     else:
                         if state['message_sent']:
-                            sense.clear()
-                            sense.set_pixel(4, 5, blue)
+                            ret = client1.publish("pi/wheels", "off")
                             state['message_sent'] = False
                             print('off')
                         # a.digitalWrite(11, a.LOW)
