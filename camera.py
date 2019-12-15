@@ -72,12 +72,15 @@ async def main():
     asyncio.sleep(4)
     print('hello')
 
+state = {
+    'message_sent': False
+}
+
 
 class Camera(object):
     thread = None  # background thread that reads frames from camera
     frame = None  # current frame is stored here by background thread
     last_access = 0  # time of last client access to the camera
-    message_sent = False
 
     def initialize(self):
         if Camera.thread is None:
@@ -140,9 +143,9 @@ class Camera(object):
                         print('the geometry is: x, y')
                         print(xmax - xmin)
                         print(ymax - ymin)
-                        if not cls.message_sent:
+                        if not state['message_sent']:
                             sense.set_pixel(4, 5, red)
-                            cls.message_sent = True
+                            state['message_sent'] = True
 
 
                         # old_angles = default_arm_positions
@@ -167,9 +170,9 @@ class Camera(object):
                         # move_forward()
                     else:
                         print('low')
-                        if cls.message_sent:
+                        if state['message_sent']:
                             sense.set_pixel(4, 5, blue)
-                            cls.message_sent = False
+                            state['message_sent'] = False
                         # a.digitalWrite(11, a.LOW)
                         # a.digitalWrite(10, a.LOW)
 
