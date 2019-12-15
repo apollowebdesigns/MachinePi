@@ -20,6 +20,7 @@ import os
 from sense_hat import SenseHat
 
 sense = SenseHat()
+sense.clear()
 
 red = (255, 0, 0)
 orange = (255, 165, 0)
@@ -144,6 +145,7 @@ class Camera(object):
                         print(xmax - xmin)
                         print(ymax - ymin)
                         if not state['message_sent']:
+                            sense.clear()
                             sense.set_pixel(4, 5, red)
                             state['message_sent'] = True
                             print('on')
@@ -171,6 +173,7 @@ class Camera(object):
                         # move_forward()
                     else:
                         if state['message_sent']:
+                            sense.clear()
                             sense.set_pixel(4, 5, blue)
                             state['message_sent'] = False
                             print('off')
