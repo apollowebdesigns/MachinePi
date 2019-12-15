@@ -146,7 +146,7 @@ class Camera(object):
                         print(ymax - ymin)
                         if not state['message_sent']:
                             sense.clear()
-                            sense.set_pixel(4, 5, red)
+                            sense.set_pixel(5, 5, purple)
                             state['message_sent'] = True
                             print('on')
 
