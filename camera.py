@@ -40,7 +40,7 @@ def on_publish(client, userdata, result):
     pass
 
 
-client1 = paho.Client("control1")
+client1 = paho.Client("motors")
 client1.on_publish = on_publish
 client1.connect(broker, port)
 
