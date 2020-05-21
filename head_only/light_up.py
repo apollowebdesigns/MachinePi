@@ -12,7 +12,7 @@ def light_up():
     g = randint(0, 255)
     b = randint(0, 255)
     sense.set_pixel(x, y, r, g, b)
-    sleep(0.01)
+    sleep(2)
 
 
 def clear():
