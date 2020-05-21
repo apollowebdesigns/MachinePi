@@ -59,8 +59,8 @@ import sys
 
 
 # Load the model
-net = cv2.dnn.readNet(os.path.dirname(__file__) + '/face-detection-adas-0001.xml',
-                      os.path.dirname(__file__) + '/face-detection-adas-0001.bin')
+net = cv2.dnn.readNet(os.path.abspath(__file__) + '/face-detection-adas-0001.xml',
+                      os.path.abspath(__file__) + '/face-detection-adas-0001.bin')
 # net = cv2.dnn.readNet(os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.xml', os.path.dirname(__file__) + '/pedestrian-detection-adas-0002.bin')
 # net = cv2.dnn.readNet(os.path.dirname(__file__) + '/text-detection-0002.xml', os.path.dirname(__file__) + '/text-detection-0002.bin')
 
