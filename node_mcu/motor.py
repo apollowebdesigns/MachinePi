@@ -25,3 +25,35 @@ while True:
     a_one.digitalWrite(rightForward, a_one.LOW)
     a_one.digitalWrite(rightBackward, a_one.LOW)
     sleep(2)
+
+
+
+from time import sleep
+from nanpy import SerialManager, ArduinoApi
+
+connection_three = SerialManager(device='/dev/ttyUSB2')
+a_three = ArduinoApi(connection=connection_three)
+
+leftForward = 13
+leftBackward = 15
+rightForward = 4
+rightBackward = 5
+
+
+a_three.pinMode(leftForward, a_three.OUTPUT)
+a_three.pinMode(leftBackward, a_three.OUTPUT)
+a_three.pinMode(rightForward, a_three.OUTPUT)
+a_three.pinMode(rightBackward, a_three.OUTPUT)
+
+while True:
+    print('on')
+    a_three.digitalWrite(leftForward, a_three.HIGH)
+    a_three.digitalWrite(leftBackward, a_three.LOW)
+    a_three.digitalWrite(rightForward, a_three.HIGH)
+    a_three.digitalWrite(rightBackward, a_three.LOW)
+    sleep(2)
+    print('off')
+    a_three.digitalWrite(leftForward, a_three.LOW)
+    a_three.digitalWrite(leftBackward, a_three.LOW)
+    a_three.digitalWrite(rightForward, a_three.LOW)
+    a_three.digitalWrite(rightBackward, a_three.LOW)
