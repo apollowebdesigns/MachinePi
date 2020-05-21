@@ -16,7 +16,7 @@ from PIL import Image
 # from arminit import MoveArm
 import threading
 import os
-from light_up import light_up
+from light_up import light_up, clear
 
 import paho.mqtt.client as paho
 
@@ -169,6 +169,7 @@ class Camera(object):
 
                         # move_forward()
                     else:
+                        clear()
                         if state['message_sent']:
                             ret = client1.publish("pi/wheels", "off")
                             state['message_sent'] = False
