@@ -14,7 +14,6 @@ import cv2
 import numpy as np
 from PIL import Image
 # from arminit import MoveArm
-from xmas import light_up_xmas
 import threading
 import os
 from light_up import light_up
